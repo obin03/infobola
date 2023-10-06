@@ -25,8 +25,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -65,19 +64,14 @@ class BolaInfoScreen extends StatelessWidget {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
-
           TextField(
             decoration: InputDecoration(
               hintText: 'Cari pertandingan...',
               prefixIcon: Icon(Icons.search),
             ),
-            onChanged: (value) {
-
-            },
+            onChanged: (value) {},
           ),
-
           SizedBox(height: 16),
-
           Text(
             'Match yang Sedang Berlangsung',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -88,11 +82,11 @@ class BolaInfoScreen extends StatelessWidget {
             skor: '1 - 0',
             timB: 'Liverpool',
             liga: 'Premier League',
-            pencetakGol: 'John Doe',
+            pencetakGol: 'Obin',
+            logoTimA: 'assets/Mancy.png',
+            logoTimB: 'assets/liv.png',
           ),
-
           SizedBox(height: 16),
-
           Text(
             'Match yang Sudah Selesai',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -116,23 +110,24 @@ class BolaInfoScreen extends StatelessWidget {
               topPlayerB: 'Karim Benzema',
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/detail', arguments: MatchInfo(
-                tanggal: '04-10-2023',
-                timA: 'Barcelona',
-                skor: '3 - 0',
-                timB: 'Real Madrid',
-                liga: 'La Liga',
-                pencetakGol: 'Lionel Messi',
-                status: 'Selesai',
-                totalShotsA: 15,
-                totalShotsOnTargetA: 8,
-                possessionA: 60,
-                totalShotsB: 10,
-                totalShotsOnTargetB: 5,
-                possessionB: 40,
-                topPlayerA: 'Lionel Messi',
-                topPlayerB: 'Karim Benzema',
-              ));
+              Navigator.pushNamed(context, '/detail',
+                  arguments: MatchInfo(
+                    tanggal: '04-10-2023',
+                    timA: 'Barcelona',
+                    skor: '3 - 0',
+                    timB: 'Real Madrid',
+                    liga: 'La Liga',
+                    pencetakGol: 'Lionel Messi',
+                    status: 'Selesai',
+                    totalShotsA: 15,
+                    totalShotsOnTargetA: 8,
+                    possessionA: 60,
+                    totalShotsB: 10,
+                    totalShotsOnTargetB: 5,
+                    possessionB: 40,
+                    topPlayerA: 'Lionel Messi',
+                    topPlayerB: 'Karim Benzema',
+                  ));
             },
           ),
         ],
@@ -145,7 +140,8 @@ class BolaInfoScreen extends StatelessWidget {
 class DetailMatchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MatchInfo match = ModalRoute.of(context)!.settings.arguments as MatchInfo;
+    final MatchInfo match =
+        ModalRoute.of(context)!.settings.arguments as MatchInfo;
 
     if (match.status == 'Selesai') {
       return Scaffold(
@@ -237,7 +233,8 @@ class DetailMatchScreen extends StatelessWidget {
           title: Text('Detail Match'),
         ),
         body: Center(
-          child: Text('Detail match hanya dapat dilihat untuk pertandingan yang sudah selesai.'),
+          child: Text(
+              'Detail match hanya dapat dilihat untuk pertandingan yang sudah selesai.'),
         ),
       );
     }
@@ -252,6 +249,8 @@ class JadwalPertandingan extends StatelessWidget {
   final String timB;
   final String liga;
   final String pencetakGol;
+  final String logoTimA;
+  final String logoTimB;
 
   JadwalPertandingan({
     required this.tanggal,
@@ -260,6 +259,8 @@ class JadwalPertandingan extends StatelessWidget {
     required this.timB,
     required this.liga,
     required this.pencetakGol,
+    required this.logoTimA,
+    required this.logoTimB,
   });
 
   @override
@@ -272,6 +273,11 @@ class JadwalPertandingan extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Image.asset(
+              'assets/Mancy.png',
+              width: 40,
+              height: 40,
+            ),
             Text(
               '$timA',
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -304,6 +310,11 @@ class JadwalPertandingan extends StatelessWidget {
               '$timB',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            Image.asset(
+              'assets/liv.png', // Ubah sesuai path logo Tim B
+              width: 40,
+              height: 40,
+            ),
           ],
         ),
       ),
@@ -311,7 +322,6 @@ class JadwalPertandingan extends StatelessWidget {
   }
 }
 
-//PEMBUATAN MATCH YANG SUDAH SELESA
 class MatchSudahSelesai extends StatelessWidget {
   final MatchInfo matchInfo;
   final VoidCallback onTap;
@@ -333,6 +343,11 @@ class MatchSudahSelesai extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Image.asset(
+                'assets/barca.png', // Ubah sesuai path logo Tim A
+                width: 40,
+                height: 40,
+              ),
               Text(
                 '${matchInfo.timA}',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -364,6 +379,11 @@ class MatchSudahSelesai extends StatelessWidget {
               Text(
                 '${matchInfo.timB}',
                 style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Image.asset(
+                'assets/rema.png',
+                width: 40,
+                height: 40,
               ),
             ],
           ),
@@ -409,6 +429,7 @@ class MatchInfo {
     required this.topPlayerB,
   });
 }
+
 class MatchItem extends StatelessWidget {
   final String tanggal;
   final String timA;
@@ -479,5 +500,8 @@ class MatchItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
   }
 }
